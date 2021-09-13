@@ -1,0 +1,89 @@
+body{
+  background-color: $mainGreen;
+  font-family: sans-serif;
+  color: $mainBlue;
+  font-size: 20px;
+}
+
+#navbar {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: none; //$mainGreen;
+  width: 100vw;
+  height:130px;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+
+button {
+  margin: 15px;
+  height: 40px;
+  padding: 10px;
+  background-color: $mainGreen;
+  color: $mainBlue;
+  border: 2px solid $mainBlue;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: $mainBlue;
+  color: $mainGreen;
+  border: 2px solid $mainBlue;
+}
+
+#landing {
+  margin-top: 130px;
+}
+
+#leftbuttons {
+  margin-left: 30px;
+}
+
+#rightbuttons {
+  margin-right: 30px;
+}
+
+#logo {
+  height: 130px;
+  align-self: center;
+  justify-self: center;
+
+}
+
+.landing_content {
+  height: 80vh;
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.get_started {
+  //padding: 30px;
+  align-items: center;
+  font-size: x-large;
+  border-radius: 5px;
+  height: 90px;
+  padding:25px;
+
+}
+.product_Description {
+  width: 50%;
+  font-size: x-large;
+  margin-right: 20px;
+}
+.intro_phrase {
+  font-size: 1.3em;
+}
+.bold {
+  font-weight: bold;
+}
+
+#main_gif {
+  padding: 20px;
+  height: 45vh;
+}
+

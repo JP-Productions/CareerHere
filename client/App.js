@@ -1,11 +1,19 @@
 import React, { Component } from 'react';
-import MainContainer from './containers/MainContainer';
+import Landing from './containers/Landing';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
+
+
 class App extends Component {
   constructor(props) {
     super(props);
   }
   render() {
-    return <MainContainer />;
+    return <Landing />;
   }
 }
 

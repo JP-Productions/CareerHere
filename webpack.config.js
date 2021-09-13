@@ -1,6 +1,7 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
+const CopyPlugin = require("copy-webpack-plugin");
 
 const currentMode = process.env.NODE_ENV;
 module.exports = {
@@ -51,5 +52,9 @@ module.exports = {
       },
     ],
   },
-  plugins: [new MiniCssExtractPlugin(), new ImageMinimizerPlugin()],
+  plugins: [new MiniCssExtractPlugin(), new ImageMinimizerPlugin(), new CopyPlugin({
+    patterns: [
+      { from: "client", to: "client" },
+    ],
+  })],
 };
