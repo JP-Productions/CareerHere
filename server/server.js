@@ -10,50 +10,6 @@ app.use(cookieParser());
 app.use(express.json());
 app.use('/dist', express.static(path.join(__dirname, '../dist')));
 app.use(express.static(path.join(__dirname, '..', '/client/')));
-app.post(
-  '/login',
-  (req, res) => {
-    return res.status(200).json('hi mom');
-  }
-);
-app.get('/message', (req, res) => {
-  return res.status(200).json('message');
-});
-app.post(
-  '/message',
-  (req, res) => {
-    return res.status(200).json('msg');
-  }
-);
-app.delete(
-  '/message',
-  (req, res) => {
-    return res.status(200).send('hi');
-  }
-);
-app.put(
-  '/message',
-  (req, res) => {
-    return res.status(200).json('hello');
-  }
-);
-app.put(
-  '/check',
-  (req, res) => res.status(200).json('hi')
-);
-app.post(
-  '/register',
-  (req, res) => {
-    return res.status(200).json('hi');
-  }
-);
-
-app.delete(
-  '/logout',
-  (req, res) => {
-    return res.status(200).json('1');
-  }
-);
 
 app.get('/', (req, res) => {
   return res.sendFile(path.join(__dirname, '..', '/client/index.html'));
