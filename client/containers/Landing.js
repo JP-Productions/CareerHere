@@ -1,8 +1,26 @@
 import React, { useState } from 'react';
 import NavBar from './NavBar.js';
-
+import { GoogleLogin } from 'react-google-login';
+import axios from 'axios';
 
 const Landing = (props) => {
+  const responseGoogle = async (response) => {
+    console.log("Google response: ", response.Rs.$I);
+    
+    axios.post('/auth/google', {
+      firstName: response.Rs.mU,
+      lastName: response.Rs.mS,
+      email: response.Rs.Ct,
+      token: response.Rs.$I,
+    })
+    .then(function (response) {
+      console.log(response);
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  };
+
   return (
     <div id='landing'>
       <NavBar/>
@@ -12,7 +30,16 @@ const Landing = (props) => {
           Track all jobs of interest, where you are in the application process, and most importantly, notes about the company and team's culture and how that aligns with your values.  A career is more than a paycheck.  Make your next endeavor a career.
           {/* fill in with hard coded description */}
         </div>
-        <button className='get_started'>Get Started!</button>
+          <GoogleLogin
+            clientId='351358931211-av32gv56l0qja9hrs47hi1va0j3uv4as.apps.googleusercontent.com'
+            render={renderProps => (
+            <button onClick={renderProps.onClick} className='get_started' disabled={renderProps.disabled}>Get Started</button>
+            )}  
+            buttonText="Login"
+            onSuccess={responseGoogle}
+            onFailure={responseGoogle}
+            cookiePolicy={'single_host_origin'}
+          />
          <img id='main_gif' src="../getstarted.gif" /> 
       </div>
       

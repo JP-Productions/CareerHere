@@ -57,7 +57,7 @@ button:hover {
   height: 80vh;
   display:flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 }
 
@@ -84,6 +84,7 @@ button:hover {
 
 #main_gif {
   padding: 20px;
-  height: 45vh;
+  max-height: 45vh;
+  max-width: 70vw;
 }
 
