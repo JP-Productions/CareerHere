@@ -6,6 +6,7 @@ const PG_URI =
 // create a new pool here using the connection string above
 const pool = new Pool({
   connectionString: PG_URI,
+  max: 3
 });
 
 // Adding some notes about the database here will be helpful for future you or other developers.

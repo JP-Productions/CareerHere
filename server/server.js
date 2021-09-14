@@ -19,6 +19,14 @@ app.get('/', (req, res) => {
 app.post('/auth/google', DBcontroller.verifyUser, (req, res) => {
   console.log('Req Body: ', req.body);
   return res.send('successful oAuth');
+  //need controllers to check if user exists, if not add them to DB, store their token in the users table as well
+  //check if logged in controller that grabs last token for user from DB, and checks if they have that in the cookies attached to their request
+    //update token in users table if changed
+  //on all other requests look for the correct cookie, if they don't have it, redirect to the homepage with a prompt to sign in
+  //two controllers:
+    //signInUpAndAddCookie
+    //checkCookie
+  //use email as unique user identifier
 });
 
 app.use('*', (req, res) => {
