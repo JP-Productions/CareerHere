@@ -88,3 +88,18 @@ button:hover {
   max-width: 70vw;
 }
 
+.jobmodal {
+  font-size: .5em;
+  max-width: 17%;
+  border: 2px solid $mainBlue;
+  position: relative;
+  padding: 5px;
+  border-radius: 4px;
+  min-width: 18em;
+}
+
+.modallogo {
+  max-height: 5em;
+  position: absolute;
+  right: 5px;
+}

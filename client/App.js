@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Landing from './containers/Landing';
+import Landing from './components/Landing';
 import {
   BrowserRouter as Router,
   Switch,
