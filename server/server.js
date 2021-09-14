@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const DBcontroller = require('./controllers/DBcontrollers.js');
+const Authcontrollers = require('./controllers/Authcontrollers.js')
 
 const app = express();
 
@@ -16,7 +17,7 @@ app.get('/', (req, res) => {
   return res.sendFile(path.join(__dirname, '..', '/client/index.html'));
 });
 
-app.post('/auth/google', DBcontroller.verifyUser, (req, res) => {
+app.post('/auth/google', DBcontroller.verifyUser, Authcontrollers.setCookie, (req, res) => {
   console.log('Req Body: ', req.body);
   return res.send('successful oAuth');
   //need controllers to check if user exists, if not add them to DB, store their token in the users table as well
@@ -28,6 +29,20 @@ app.post('/auth/google', DBcontroller.verifyUser, (req, res) => {
     //checkCookie
   //use email as unique user identifier
 });
+
+app.post('/test', DBcontroller.postUserApps, (req,res)=>{
+  return res.status(200).send('app created')
+});
+
+app.get('/test', DBcontroller.getAllUserApps, (req,res)=>{
+  return res.status(200).json(res.locals.apps)
+});
+
+app.delete('/test', DBcontroller.deleteUserApps, (req,res)=>{
+  return res.status(200).send('app got deleted')
+});
+
+app.post('/')
 
 app.use('*', (req, res) => {
   res.sendStatus(404);
