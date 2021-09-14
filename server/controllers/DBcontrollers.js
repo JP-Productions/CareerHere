@@ -15,9 +15,9 @@ DBcontroller.verifyUser = async (req, res, next) => {
       /// if result.rows has length 1 we will set cookie in order to allow user access
       res.locals.id = verifyResult.rows[0].id;
     } else {
-      const instertParams = [firstName, lastName, email, token];
+      const insertParams = [firstName, lastName, email, token];
       const insertString = `INSERT INTO users (first_name, last_name, email, user_name, password) VALUES ($1, $2, $3, $3, $4) RETURNING * `;
-      const insertResult = await db.query(insertString, instertParams);
+      const insertResult = await db.query(insertString, insertParams);
       console.log(insertResult);
       res.locals.id = insertResult.rows[0].id;
     }
