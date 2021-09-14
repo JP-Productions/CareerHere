@@ -26,6 +26,7 @@
     "express": "^4.12.3",
     "mongoose": "4.4.1",
     "nodemon": "^1.8.1",
+    "pg": "^8.5.1",
     "prop-types": "^15.6.1",
     "react": "^17.0.2",
     "react-async": "^10.0.1",
