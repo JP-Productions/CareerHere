@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
+const DBcontroller = require('./controllers/DBcontrollers.js');
 
 const app = express();
 
@@ -15,11 +16,10 @@ app.get('/', (req, res) => {
   return res.sendFile(path.join(__dirname, '..', '/client/index.html'));
 });
 
-app.post('/auth/google', (req, res) => {
+app.post('/auth/google', DBcontroller.verifyUser, (req, res) => {
   console.log('Req Body: ', req.body);
   return res.send('successful oAuth');
 });
-
 
 app.use('*', (req, res) => {
   res.sendStatus(404);
