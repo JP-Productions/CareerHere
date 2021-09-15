@@ -17,7 +17,7 @@ const JobModal = (props) => {
     });
   }
   return (
-    <div className='jobmodal'>
+    <button className='jobmodal' key={props.jobObj.id || Math.round(Math.random()*1000)}>
       {(logo) ? <img className="modallogo" src={`https://logo.clearbit.com/${props.company_name}.com?size=200`}></img> : <p></p>}
       <div className="modaltext">
         <div><span className="bold">Company Name: </span>{props.company_name}</div>
@@ -28,7 +28,7 @@ const JobModal = (props) => {
         <div><span className="bold">Notes: </span>{props.notes.slice(0, 140)}</div>
       </div>
 
-    </div>
+    </button>
   );
 };
 

@@ -34,7 +34,7 @@ const Landing = ({responseGoogle}) => {
               onFailure={responseGoogle}
               cookiePolicy={'single_host_origin'}
             />
-         <img id='main_gif' src="../getstarted.gif" /> 
+         {/* <img id='main_gif' src="../getstarted.gif" />  */}
       </div>
     </div>
   );
