@@ -31,6 +31,11 @@ const userReducer = (state = initialState, action) => {
         jobs: [],
         loggedIn: false,
       };
+    case types.GET_JOBS:
+      return {
+        ...state,
+        jobs: action.payload
+      }
     default: {
       return state;
     }

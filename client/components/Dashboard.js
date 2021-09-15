@@ -20,7 +20,7 @@ const Dashboard = (props) => {
         <div id="dashboardbreak"></div>
         <div id="dashboardbottom">
             {jobs.map((el) => {
-                return <JobModal company_name={el.cons} jobObj={el} title={el.title} stage={el.stage} salary={el.offer_salary} notes={el.misc}/>
+                return <JobModal company_name={el.company_name} jobObj={el} title={el.title} stage={el.stage} salary={el.offer_salary} notes={el.misc}/>
             })}
             {/* <JobModal company_name='PayPal' title='Chief Meme Officer' stage='In the fucking bag' salary='all the booty' notes='I dont do anything all day but watch the transactions come in and round it down in our systems and divert the remaining fractions of a cent to my account and keep my head down' />
             <JobModal company_name='Amazon' title='Chief Meme Officer' stage='In the fucking bag' salary='all the booty' notes='' />

@@ -1,24 +1,26 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import * as types from '../constants/actionTypes';
 
 const JobModal = (props) => {
-  let logo = true;
-  if (props.company_name === 'nofun' || props.company_name === "" || !props.company_name) logo = false;
-  if (logo === true) {
-    axios.get(`https://logo.clearbit.com/${props.company_name}.com`)
-    // axios.get(`https://logo.clearbit.com/google.com`)
-    .then(function (response) {
-      logo = true;
-      console.log(response);
-    })
-    .catch(function (error) {
-      logo = false;
-      console.log(error);
-    });
-  }
+  const dispatch = useDispatch(); 
+  // let logo = true;
+  // axios.get(`https://logo.clearbit.com/${props.company_name}.com`)
+  // // axios.get(`https://logo.clearbit.com/google.com`)
+  // .then(function (response) {
+  //   console.log("RESPONSE STATUS", response.status);
+  //   logo = true;
+  // })
+  // .catch(function (error) {
+  //   logo = false;
+  //   console.log(error);
+  // });
+  
+  // SWITCHED_TO_EDIT
   return (
-    <button className='jobmodal' key={props.jobObj.id || Math.round(Math.random()*1000)}>
-      {(logo) ? <img className="modallogo" src={`https://logo.clearbit.com/${props.company_name}.com?size=200`}></img> : <p></p>}
+    <button onClick={() => {dispatch({type: types.SWITCHED_TO_EDIT, payload: props.jobObj})}} className='jobmodal' key={props.jobObj.id || Math.round(Math.random()*1000)}>
+      {<img className="modallogo" src={`https://logo.clearbit.com/${props.company_name}.com?size=200`} onError={(e)=>e.target.style.display='none'}></img>}
       <div className="modaltext">
         <div><span className="bold">Company Name: </span>{props.company_name}</div>
         <div><span className="bold">Title: </span>{props.title}</div>

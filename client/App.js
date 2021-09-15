@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import Landing from './components/Landing';
 import JobDetails from './components/JobDetails.js';
 import JobModal from './components/JobModal';
@@ -10,7 +10,7 @@ import {
   Link,
   Redirect
 } from "react-router-dom";
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux';
 import { GoogleLogin } from 'react-google-login';
 import axios from 'axios';
 import * as types from './constants/actionTypes';
@@ -24,7 +24,9 @@ import * as types from './constants/actionTypes';
 //     this.responseGoogle = this.responseGoogle.bind(this);
 //   }
 const App = (props) => {
-  const loggedIn = useSelector((state)=>state.user.loggedIn)
+  const [addingJob, setAddingJob] = useState(false);
+  const loggedIn = useSelector((state)=>state.user.loggedIn);
+  const editMode = useSelector((state)=>state.job.editMode);
   const dispatch = useDispatch();
   function responseGoogle (response) {
     axios.post('/auth/google', {
@@ -76,9 +78,7 @@ const App = (props) => {
                 )
               }
               {loggedIn ? (
-                <Link to="/addjob">
-                  <button>Add Job</button>
-                </Link> 
+                  <button onClick={()=> setAddingJob(true)}> Add Job</button>
                 ) : (
                   <GoogleLogin
                     clientId='351358931211-av32gv56l0qja9hrs47hi1va0j3uv4as.apps.googleusercontent.com'
@@ -111,21 +111,15 @@ const App = (props) => {
               <button>Team</button>
             </Link>
           </div>
-
           </div>
-
           <Switch>
             <Route exact path="/">
-              
-              {loggedIn ? (
-                <Dashboard />
-                ) : <Landing responseGoogle={responseGoogle}/>
+              {addingJob || editMode ? (<JobDetails setAddingJob={setAddingJob} />) : (
+                loggedIn ? (
+                  <Dashboard />
+                  ) : <Landing responseGoogle={responseGoogle}/> 
+                )
               }
-            </Route>
-            <Route exact path="/addjob">
-              <JobDetails>
-
-              </JobDetails>
             </Route>
           </Switch>
         </Router>
