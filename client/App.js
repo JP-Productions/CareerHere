@@ -76,8 +76,8 @@ const App = (props) => {
                 )
               }
               {loggedIn ? (
-                <Link to="/dashboard">
-                  <button>Dashboard</button>
+                <Link to="/addjob">
+                  <button>Add Job</button>
                 </Link> 
                 ) : (
                   <GoogleLogin
@@ -96,14 +96,22 @@ const App = (props) => {
             <Link to="/">
             <img id="logo" src="../Crown_Vintage_Logo_no_Scroll.png"/>
             </Link>
-            <div id='linkedin'>
-              <Link to="www.linkedin.com">
-              <button onClick={()=>console.log(jobs)}>Linked In</button>
-              </Link>
-              <Link to="/team">
+            <div id="rightbuttons">
+            <button
+              id="linkedin"
+              onClick={(e) => {
+                e.preventDefault();
+                window.open("https://www.linkedin.com", "_blank") ||
+                  window.location.replace("https://www.linkedin.com");
+              }}
+            >
+              LinkedIn
+            </button>
+            <Link to="/team">
               <button>Team</button>
-              </Link>
-            </div>
+            </Link>
+          </div>
+
           </div>
 
           <Switch>
@@ -113,6 +121,11 @@ const App = (props) => {
                 <Dashboard />
                 ) : <Landing responseGoogle={responseGoogle}/>
               }
+            </Route>
+            <Route exact path="/addjob">
+              <JobDetails>
+
+              </JobDetails>
             </Route>
           </Switch>
         </Router>

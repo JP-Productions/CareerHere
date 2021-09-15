@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import JobModal from './JobModal.js';
+import JobDetails from './JobDetails.js';
 import date from 'date-and-time';
 import {
   BrowserRouter as Router,
@@ -13,16 +14,9 @@ const Dashboard = (props) => {
   // const dispatch = useDispatch();
   const jobs = useSelector(state => state.user.jobs);
   const firstName = useSelector(state => state.user.firstName);
-  const createdAt = useSelector(state => state.user.createdAt);
 
   return (
     <div id='dashboard'>
-        <div id='dashboardtop'>
-            <div id="daycount">
-                It has been {Math.floor((Date.now()-Date.parse(createdAt))/(1000*60*60*24))} days since you started job hunting!
-            </div>
-            <button className="addjob">Add Job</button>
-        </div>
         <div id="dashboardbreak"></div>
         <div id="dashboardbottom">
             {jobs.map((el) => {
