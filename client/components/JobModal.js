@@ -15,12 +15,12 @@ const JobModal = (props) => {
   return (
     <div className='jobmodal'>
       {(logo) ? <img className="modallogo" src='https://logo.clearbit.com/google.com?size=200'></img> : <p></p>}
-      <div>Company Name: {props.company_name}</div>
-      <div>Title: {props.title}</div>
-      <div>Stage: {props.stage}</div>
-      <div>Salary: {props.salary}</div>
+      <div><span className="bold">Company Name: </span>{props.company_name}</div>
+      <div><span className="bold">Title: </span>{props.title}</div>
+      <div><span className="bold">Stage: </span>{props.stage}</div>
+      <div><span className="bold">Salary: </span>{props.salary}</div>
       <br/>
-      <div>Notes: {props.notes.slice(0, 140)}</div>
+      <div><span className="bold">Notes: </span>{props.notes.slice(0, 140)}</div>
 
     </div>
   );

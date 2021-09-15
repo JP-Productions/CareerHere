@@ -10,7 +10,7 @@ body{
   position: fixed;
   top: 0;
   left: 0;
-  background-color: none; //$mainGreen;
+  background-color: $mainGreen; //$mainGreen;
   width: 100vw;
   height:130px;
   justify-content: space-between;
@@ -90,6 +90,7 @@ button:hover {
 
 .jobmodal {
   font-size: .5em;
+  color: $mainBlue;
   max-width: 17%;
   border: 2px solid $mainBlue;
   position: relative;
@@ -98,8 +99,61 @@ button:hover {
   min-width: 18em;
 }
 
+.jobmodal:hover {
+  color: $mainGreen;
+  background-color: $mainBlue;
+}
+
 .modallogo {
   max-height: 5em;
   position: absolute;
   right: 5px;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.form__field {
+  color: $mainBlue;
+  background-color: $mainGreen;
+  border: 1px solid $mainBlue;
+  border-radius: 2px;
+}
+
+.form__field {
+  background-color: $mainGreen;
+  border: 1px solid $mainBlue;
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: $mainBlue;
+  opacity: 1; /* Firefox */
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10-11 */
+  color: $mainBlue;
+}
+
+::-ms-input-placeholder { /* Microsoft Edge */
+  color: $mainBlue;
+}
+
+input:focus {
+  outline: none !important;
+  border:1px solid $mainBlue;
+  box-shadow: 0 0 10px #719ECE;
+}
+
+.jobdetails {
+  font-size: 1em;
+  display: flex;
+  flex-wrap: wrap;
+  color: $mainBlue;
+  max-width: 80%;
+  border: 2px solid $mainBlue;
+  position: relative;
+  padding: 15px;
+  border-radius: 6px;
+  min-width: 18em;
 }

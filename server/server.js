@@ -29,6 +29,10 @@ app.post('/auth/google', DBcontroller.verifyUser, (req, res) => {
   //use email as unique user identifier
 });
 
+app.get('/*', function (req, res) {
+  res.redirect('/');
+});
+
 app.use('*', (req, res) => {
   res.sendStatus(404);
 });
