@@ -51,25 +51,33 @@ const App = (props) => {
   };
 
   const jobs = useSelector((state)=>state.user.jobs);
- 
+  const createdAt = useSelector(state => state.user.createdAt);
+  let dayCount = Math.ceil((Date.now()-Date.parse(createdAt))/(1000*60*60*24))
     return (
       <div>
         <Router>
           <div id='navbar'>
             <div id='leftbuttons'>
-              <GoogleLogin
-                clientId='351358931211-av32gv56l0qja9hrs47hi1va0j3uv4as.apps.googleusercontent.com'
-                render={renderProps => (
-                <button onClick={renderProps.onClick} disabled={renderProps.disabled}>Login</button>
-                )}  
-                buttonText="Login"
-                onSuccess={responseGoogle}
-                onFailure={responseGoogle}
-                cookiePolicy={'single_host_origin'}
-              />
+            {loggedIn ? (
+                  <div id="daycount">
+                      {`Job hunting day: ${dayCount}`}
+                  </div>
+                ) : (
+                  <GoogleLogin
+                    clientId='351358931211-av32gv56l0qja9hrs47hi1va0j3uv4as.apps.googleusercontent.com'
+                    render={renderProps => (
+                    <button onClick={renderProps.onClick} disabled={renderProps.disabled}>Login</button>
+                    )}  
+                    buttonText="Login"
+                    onSuccess={responseGoogle}
+                    onFailure={responseGoogle}
+                    cookiePolicy={'single_host_origin'}
+                  />
+                )
+              }
               {loggedIn ? (
-                <Link to="/dashboard">
-                  <button>Dashboard</button>
+                <Link to="/addjob">
+                  <button>Add Job</button>
                 </Link> 
                 ) : (
                   <GoogleLogin
@@ -77,7 +85,7 @@ const App = (props) => {
                     render={renderProps => (
                     <button onClick={renderProps.onClick} disabled={renderProps.disabled}>Sign Up</button>
                     )}  
-                    buttonText="Login"
+                    buttonText="Sign Up"
                     onSuccess={responseGoogle}
                     onFailure={responseGoogle}
                     cookiePolicy={'single_host_origin'}
@@ -88,25 +96,36 @@ const App = (props) => {
             <Link to="/">
             <img id="logo" src="../Crown_Vintage_Logo_no_Scroll.png"/>
             </Link>
-            <div id='rightbuttons'>
-              <Link to="/demo">
-              <button onClick={()=>console.log(jobs)}>Demo</button>
-              </Link>
-              <Link to="/team">
+            <div id="rightbuttons">
+            <button
+              id="linkedin"
+              onClick={(e) => {
+                e.preventDefault();
+                window.open("https://www.linkedin.com", "_blank") ||
+                  window.location.replace("https://www.linkedin.com");
+              }}
+            >
+              LinkedIn
+            </button>
+            <Link to="/team">
               <button>Team</button>
-              </Link>
-            </div>
+            </Link>
+          </div>
+
           </div>
 
           <Switch>
             <Route exact path="/">
-              <Landing responseGoogle={responseGoogle}/>
-            </Route>
-            <Route exact path="/dashboard">
+              
               {loggedIn ? (
                 <Dashboard />
-                ) : <Redirect to="/"></Redirect>
+                ) : <Landing responseGoogle={responseGoogle}/>
               }
+            </Route>
+            <Route exact path="/addjob">
+              <JobDetails>
+
+              </JobDetails>
             </Route>
           </Switch>
         </Router>

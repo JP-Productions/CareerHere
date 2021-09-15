@@ -18,9 +18,8 @@ body{
 }
 
 
-button {
-  margin: 15px;
-  height: 40px;
+button, #daycount {
+  margin: 1em;
   padding: 10px;
   background-color: $mainGreen;
   color: $mainBlue;
@@ -40,6 +39,9 @@ button:hover {
 
 #leftbuttons {
   margin-left: 30px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 #rightbuttons {
@@ -152,17 +154,34 @@ input:focus {
   box-shadow: 0 0 10px #719ECE;
 }
 
-.jobdetails {
+#jobdetails {
   font-size: 1em;
   display: flex;
   flex-wrap: wrap;
   color: $mainBlue;
-  max-width: 80%;
+  max-width: 50%;
   border: 2px solid $mainBlue;
   position: relative;
   padding: 15px;
   border-radius: 6px;
   min-width: 18em;
+  margin-top: 130px;
+  // margin-left: auto;
+  // margin-right: auto;
+}
+
+#jobForm {
+  display: flex;
+  flex-direction: column;
+  color: $mainGreen;
+}
+
+input {
+  margin: 1em;
+  color: $mainBlue;
+  background-color: $mainGreen;
+  border: 2px solid $mainBlue;
+  border-radius: .5em;
 }
 
 #dashboard {
@@ -190,19 +209,16 @@ input:focus {
 }
 
 #daycount {
-  display: flex;
+    display: flex;
     align-items: center;
-    font-size: .5em;
-    border: 2px solid $mainBlue;
-    border-radius: 5px;
-    height: 90px;
     max-width: 140px;
-    padding: 0 25px;
+    font-size: .7em;
 }
 
 #dashboardbottom {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 #dashboardbreak {
@@ -212,4 +228,45 @@ input:focus {
   margin-bottom: 5px;
   background-color: $mainBlue;
   height: 1px;
+  padding: 2px;
 }
+
+.columnsContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.blurbContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+@media (max-width: 700px){
+  button, #daycount {
+    margin: 0.5em;
+  }
+  .product_Description {
+    width: 85%;
+  }
+  .jobdetails {
+    max-width: 85%
+  }
+  input {
+    margin: 0.5em;
+  }
+}
+
+@media (max-width: 600px){
+  button, #daycount {
+    margin: 0.43em;
+    font-size: 0.5em;
+  }
+}
+
+
+
