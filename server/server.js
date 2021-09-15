@@ -13,13 +13,11 @@ app.use(express.json());
 app.use('/dist', express.static(path.join(__dirname, '../dist')));
 app.use(express.static(path.join(__dirname, '..', '/client/')));
 
-app.get('/', (req, res) => {
-  return res.sendFile(path.join(__dirname, '..', '/client/index.html'));
-});
 
-app.post('/auth/google', DBcontroller.verifyUser, Authcontrollers.setCookie, (req, res) => {
+
+app.post('/auth/google', DBcontroller.verifyUser, Authcontrollers.setCookie, DBcontroller.getAllUserApps, (req, res) => {
   console.log('Req Body: ', req.body);
-  return res.send('successful oAuth');
+  return res.json({id:res.locals.id, createdAt: res.locals.createdAt, jobs: res.locals.apps });
   //need controllers to check if user exists, if not add them to DB, store their token in the users table as well
   //check if logged in controller that grabs last token for user from DB, and checks if they have that in the cookies attached to their request
     //update token in users table if changed
@@ -30,25 +28,28 @@ app.post('/auth/google', DBcontroller.verifyUser, Authcontrollers.setCookie, (re
   //use email as unique user identifier
 });
 
-//test routes below//
+app.delete('/job', DBcontroller.deleteUserApps, (req,res)=>{
+  return res.status(200).send('app got deleted')
+});
+app.get('/job', DBcontroller.getAllUserApps, (req,res)=>{
+  return res.status(200).json(res.locals.apps)
+});
 
-// app.post('/test', DBcontroller.postUserApps, (req,res)=>{
-//   return res.status(200).send('app created')
-// });
+app.post('/job', DBcontroller.postUserApps, (req,res)=>{
+  return res.status(200).send('Job Added');
+});
 
-// app.get('/test', DBcontroller.getAllUserApps, (req,res)=>{
-//   return res.status(200).json(res.locals.apps)
-// });
+app.put('/job', DBcontroller.updateUserApps, (req, res) => {
+  return res.status(200).send('app updated')
+})
 
-// app.delete('/test', DBcontroller.deleteUserApps, (req,res)=>{
-//   return res.status(200).send('app got deleted')
-// });
+app.get('/', (req, res) => {
+  return res.sendFile(path.join(__dirname, '..', '/client/index.html'));
+});
 
-// app.put('/test', DBcontroller.updateUserApps, (req, res) => {
-//   return res.status(200).send('app updated')
-// })
-
-app.post('/')
+app.get('/*', function (req, res) {
+  res.redirect('/');
+});
 
 app.use('*', (req, res) => {
   res.sendStatus(404);

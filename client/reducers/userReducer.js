@@ -2,24 +2,33 @@
 import * as types from '../constants/actionTypes';
 
 const initialState = {
-  currentUser: '',
+  firstName: '',
+  lastName: '',
+  createdAt: 0,
+  jobs: [],
+  id: 0,
   loggedIn: false,
 };
 
 const userReducer = (state = initialState, action) => {
-  let username;
   switch (action.type) {
     case types.USER_LOGGED_IN:
-      username = action.payload;
       return {
         ...state,
-        currentUser: username,
+        firstName: action.payload.firstName,
+        lastName: action.payload.lastName,
+        createdAt: action.payload.createdAt,
+        id: action.payload.id,
         loggedIn: true,
+        jobs: action.payload.jobs,
       };
     case types.USER_LOGGED_OUT:
       return {
         ...state,
-        currentUser: '',
+        firstName: '',
+        lastName: '',
+        createdAt: 0,
+        jobs: [],
         loggedIn: false,
       };
     default: {
