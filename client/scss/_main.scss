@@ -18,9 +18,9 @@ body{
 }
 
 
-button {
+button, #daycount {
   margin: 15px;
-  height: 40px;
+  // height: 40px;
   padding: 10px;
   background-color: $mainGreen;
   color: $mainBlue;
@@ -190,14 +190,10 @@ input:focus {
 }
 
 #daycount {
-  display: flex;
+    display: flex;
     align-items: center;
-    font-size: .5em;
-    border: 2px solid $mainBlue;
-    border-radius: 5px;
-    height: 90px;
     max-width: 140px;
-    padding: 0 25px;
+    font-size: .7em;
 }
 
 #dashboardbottom {
