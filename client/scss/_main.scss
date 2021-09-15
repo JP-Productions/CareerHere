@@ -95,6 +95,7 @@ button:hover {
   border: 2px solid $mainBlue;
   position: relative;
   padding: 5px;
+  margin: 5px;
   border-radius: 4px;
   min-width: 18em;
 }
@@ -106,8 +107,14 @@ button:hover {
 
 .modallogo {
   max-height: 5em;
+  max-width: 5em;
   position: absolute;
   right: 5px;
+}
+
+.modaltext {
+  position:relative;
+  top: -3px;
 }
 
 .bold {
@@ -156,4 +163,53 @@ input:focus {
   padding: 15px;
   border-radius: 6px;
   min-width: 18em;
+}
+
+#dashboard {
+  margin-top: 130px;
+  display: flex;
+  flex-direction: column;
+}
+
+#dashboardtop {
+  display: flex;
+  font-size: 1.5em;
+  justify-content: space-around;
+  align-items: center;
+}
+
+
+.addjob {
+    //padding: 30px;
+    display: flex;
+    align-items: center;
+    font-size: x-large;
+    border-radius: 5px;
+    height: 90px;
+    padding:25px;
+}
+
+#daycount {
+  display: flex;
+    align-items: center;
+    font-size: .5em;
+    border: 2px solid $mainBlue;
+    border-radius: 5px;
+    height: 90px;
+    max-width: 140px;
+    padding: 0 25px;
+}
+
+#dashboardbottom {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#dashboardbreak {
+  width: 85vw;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 5px;
+  background-color: $mainBlue;
+  height: 1px;
 }
