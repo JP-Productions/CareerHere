@@ -1,29 +1,126 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
+import * as types from '../constants/actionTypes';
+
 
 const JobDetails = (props) => {
-  // let logo = true;
-  // // axios.get(`https://logo.clearbit.com/${props.company_name}.com`)
-  // axios.get(`https://logo.clearbit.com/google.com`)
-  // .then(function (response) {
-  //   logo = true;
-  //   console.log(response);
-  // })
-  // .catch(function (error) {
-  //   console.log(error);
-  // });
-  const [company, setCompany] = useState('');
-  const [title, setTitle] = useState('');
-  const [stage, setStage] = useState('');
-  const [location, setLocation] = useState('');
-  const [offer, setOffer] = useState('');
-  const [lastContact, setLastContact] = useState('');
-  const [offerDate, setOfferDate] = useState('');
-  const [offerDeadline, setOfferDeadline] = useState('');
-  const [pros, setPros] = useState('');
-  const [cons, setCons] = useState('');
-  const [cultureNotes, setCultureNotes] = useState('');
-  const [misc, setMisc] = useState('');
+  
+  const userId = useSelector((state)=>state.user.id);
+  const editMode = useSelector((state)=>state.job.editMode);
+  const dispatch = useDispatch();
+  const jobId = useSelector(state=>state.job.id) 
+
+  const companyRedux = useSelector(state=>state.job.company_name);
+  const titleRedux = useSelector(state=>state.job.title);
+  const stageRedux = useSelector(state=>state.job.stage);
+  const locationRedux = useSelector(state=>state.job.location);
+  const offerRedux = useSelector(state=>state.job.offer_salary);
+  const lastContactRedux = useSelector(state=>state.job.last_contact);
+  const offerDateRedux = useSelector(state=>state.job.offer_date);
+  const offerDeadlineRedux = useSelector(state => state.job.offer_deadline);
+  const prosRedux = useSelector(state => state.job.pros);
+  const consRedux = useSelector(state => state.job.cons);
+  const cultureNotesRedux = useSelector(state => state.job.culture_notes);
+  const miscRedux = useSelector(state => state.job.misc);
+
+  const [company, setCompany] = useState(companyRedux);
+  const [title, setTitle] = useState(titleRedux);
+  const [stage, setStage] = useState(stageRedux);
+  const [location, setLocation] = useState(locationRedux);
+  const [offer, setOffer] = useState(offerRedux);
+  const [lastContact, setLastContact] = useState(lastContactRedux);
+  const [offerDate, setOfferDate] = useState(offerDateRedux);
+  const [offerDeadline, setOfferDeadline] = useState(offerDeadlineRedux);
+  const [pros, setPros] = useState(prosRedux);
+  const [cons, setCons] = useState(consRedux);
+  const [cultureNotes, setCultureNotes] = useState(cultureNotesRedux)
+  const [misc, setMisc] = useState(miscRedux);
+  function addJob() {
+    axios.post('/job', {
+      user_id: userId,
+      title: title,
+      stage: stage,
+      company_name: company,
+      location: location,
+      offer_salary: offer,
+      offer_date: offerDate,
+      last_contact: lastContact,
+      offer_deadline: offerDeadline,
+      pros: pros,
+      cons: cons,
+      culture_notes: cultureNotes,
+      misc: misc,
+    })
+    .then((res) => {
+     console.log(res);
+     dispatch({
+       type: types.GET_JOBS,
+       payload: res.data
+     })
+     props.setAddingJob(false);
+
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
+  function updateJob() {
+    axios.put('/job', {
+      user_id: userId,
+      id: jobId,
+      title: title,
+      stage: stage,
+      company_name: company,
+      location: location,
+      offer_salary: offer,
+      offer_date: offerDate,
+      last_contact: lastContact,
+      offer_deadline: offerDeadline,
+      pros: pros,
+      cons: cons,
+      culture_notes: cultureNotes,
+      misc: misc,
+    })
+    .then((res) => {
+     console.log(res);
+     dispatch({
+       type: types.GET_JOBS,
+       payload: res.data
+     })
+     dispatch({ type: types.EDIT_MADE });
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
+  function deleteJob() {
+    console.log('userId prior to delete request', userId);
+    console.log('jobid prior to delete', jobId);
+    axios.delete('/job', {
+      data: {
+      user_id: userId,
+      id: jobId,
+      }
+    })
+    .then((res) => {
+     console.log(res);
+     dispatch({
+       type: types.GET_JOBS,
+       payload: res.data
+     })
+     dispatch({ type: types.EDIT_MADE });
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
+  function cancel () {
+    editMode ? dispatch({type: types.EDIT_MADE }): props.setAddingJob(false);
+  }
   
   return (
     <div id='jobdetails'>
@@ -55,8 +152,16 @@ const JobDetails = (props) => {
           
         </div>
         <div>
-          <button id='add'>Add</button>
-          <button id="cancel">Cancel</button>
+          <button id='add' onClick={(e)=>{
+            e.preventDefault();
+            editMode ? updateJob() : addJob();
+          }
+          }>{editMode ? "Update" : "Add"}</button>
+          <button id="cancel" onClick={()=>cancel()}>Cancel</button>
+          {editMode ? <button onClick={(e)=> {
+            e.preventDefault();
+            deleteJob()
+          }}>Delete</button> : null }
         </div>
       </form>
     </div>

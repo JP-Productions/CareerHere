@@ -96,10 +96,11 @@ button:hover {
   max-width: 17%;
   border: 2px solid $mainBlue;
   position: relative;
+  text-align: left;
   padding: 5px;
   margin: 5px;
   border-radius: 4px;
-  min-width: 18em;
+  min-width: 22em;
 }
 
 .jobmodal:hover {
@@ -166,6 +167,7 @@ input:focus {
   border-radius: 6px;
   min-width: 18em;
   margin-top: 130px;
+  justify-content: space-around;
   // margin-left: auto;
   // margin-right: auto;
 }
@@ -174,6 +176,8 @@ input:focus {
   display: flex;
   flex-direction: column;
   color: $mainGreen;
+  justify-content: space-around;
+  align-items: center;
 }
 
 input {
@@ -228,17 +232,18 @@ input {
   margin-bottom: 5px;
   background-color: $mainBlue;
   height: 1px;
-  padding: 2px;
 }
 
 .columnsContainer {
   display: flex;
   flex-direction: row;
+  justify-content: space-around;
 }
 
 .column {
   display: flex;
   flex-direction: column;
+  justify-content: space-around;
 }
 
 .blurbContainer {

@@ -30,9 +30,11 @@ DBcontroller.verifyUser = async (req, res, next) => {
 
 DBcontroller.getAllUserApps = async (req, res, next) => {
   try {
+    console.log('body user_id', req.body.user_id);
     const userId = req.body.hasOwnProperty('user_id')
       ? req.body.user_id
       : res.locals.id;
+    console.log('userId', userId);
     const params = [userId];
     const getAppsString = 'SELECT * FROM applications WHERE user_id=$1';
     const apps = await db.query(getAppsString, params);
@@ -127,6 +129,7 @@ DBcontroller.updateUserApps = async (req, res, next) => {
 
 DBcontroller.deleteUserApps = async (req, res, next) => {
   try {
+    console.log('app id on body', req.body.id)
     const id = req.body.id;
     const deleteUser = 'DELETE FROM applications WHERE id=$1'; // targeted application, id
     await db.query(deleteUser, [id]);

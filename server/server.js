@@ -28,19 +28,19 @@ app.post('/auth/google', DBcontroller.verifyUser, Authcontrollers.setCookie, DBc
   //use email as unique user identifier
 });
 
-app.delete('/job', DBcontroller.deleteUserApps, (req,res)=>{
-  return res.status(200).send('app got deleted')
+app.delete('/job', DBcontroller.deleteUserApps, DBcontroller.getAllUserApps, (req,res)=>{
+  return res.status(200).json(res.locals.apps);
 });
 app.get('/job', DBcontroller.getAllUserApps, (req,res)=>{
-  return res.status(200).json(res.locals.apps)
+  return res.status(200).json(res.locals.apps);
 });
 
-app.post('/job', DBcontroller.postUserApps, (req,res)=>{
-  return res.status(200).send('Job Added');
+app.post('/job', DBcontroller.postUserApps, DBcontroller.getAllUserApps, (req,res)=>{
+  return res.status(200).json(res.locals.apps);
 });
 
-app.put('/job', DBcontroller.updateUserApps, (req, res) => {
-  return res.status(200).send('app updated')
+app.put('/job', DBcontroller.updateUserApps, DBcontroller.getAllUserApps, (req, res) => {
+  return res.status(200).json(res.locals.apps);
 })
 
 app.get('/', (req, res) => {

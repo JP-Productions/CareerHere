@@ -3,7 +3,7 @@ import * as types from '../constants/actionTypes';
 
 const initialState = {
   title: '',
-  stage: 0, 
+  stage: '', 
   offer_date: '', 
   offer_salary: '',
   offer_deadline: '', 
@@ -13,6 +13,7 @@ const initialState = {
   pros: '', 
   cons: '', 
   misc: '',
+  company_name: '',
   id: 0,
   editMode: false,
 };
@@ -22,6 +23,7 @@ const jobReducer = (state = initialState, action) => {
     case types.SWITCHED_TO_EDIT:
       return {
         ...state,
+        company_name: action.payload.company_name,
         title: action.payload.title,
         stage: action.payload.stage, 
         offer_date: action.payload.offer_date, 
@@ -39,6 +41,7 @@ const jobReducer = (state = initialState, action) => {
     case types.EDIT_MADE:
       return {
         ...state,
+        company_name: '',
         title: '',
         stage: 0, 
         offer_date: '', 
