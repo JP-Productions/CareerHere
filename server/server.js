@@ -30,17 +30,23 @@ app.post('/auth/google', DBcontroller.verifyUser, Authcontrollers.setCookie, (re
   //use email as unique user identifier
 });
 
-app.post('/test', DBcontroller.postUserApps, (req,res)=>{
-  return res.status(200).send('app created')
-});
+//test routes below//
 
-app.get('/test', DBcontroller.getAllUserApps, (req,res)=>{
-  return res.status(200).json(res.locals.apps)
-});
+// app.post('/test', DBcontroller.postUserApps, (req,res)=>{
+//   return res.status(200).send('app created')
+// });
 
-app.delete('/test', DBcontroller.deleteUserApps, (req,res)=>{
-  return res.status(200).send('app got deleted')
-});
+// app.get('/test', DBcontroller.getAllUserApps, (req,res)=>{
+//   return res.status(200).json(res.locals.apps)
+// });
+
+// app.delete('/test', DBcontroller.deleteUserApps, (req,res)=>{
+//   return res.status(200).send('app got deleted')
+// });
+
+// app.put('/test', DBcontroller.updateUserApps, (req, res) => {
+//   return res.status(200).send('app updated')
+// })
 
 app.post('/')
 
