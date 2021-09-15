@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Landing from './components/Landing';
 import JobDetails from './components/JobDetails.js';
 import JobModal from './components/JobModal';
+import Dashboard from './components/Dashboard.js';
 import {
   BrowserRouter as Router,
   Switch,
@@ -9,38 +10,48 @@ import {
   Link,
   Redirect
 } from "react-router-dom";
+import { useSelector, useDispatch } from 'react-redux'
 import { GoogleLogin } from 'react-google-login';
 import axios from 'axios';
+import * as types from './constants/actionTypes';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      loggedIn: false,
-    }
-    this.responseGoogle = this.responseGoogle.bind(this);
-  }
-
-  responseGoogle(response) {
-    console.log("Google response: ", response.Rs.$I);
-    
+// class App extends Component {
+//   constructor(props) {
+//     super(props);
+//     // this.state = {
+//     //   loggedIn: false,
+//     // }
+//     this.responseGoogle = this.responseGoogle.bind(this);
+//   }
+const App = (props) => {
+  const loggedIn = useSelector((state)=>state.user.loggedIn)
+  const dispatch = useDispatch();
+  function responseGoogle (response) {
     axios.post('/auth/google', {
       firstName: response.Rs.mU,
       lastName: response.Rs.mS,
       email: response.Rs.Ct,
       token: response.Rs.$I,
     })
-    .then((response) => {
-      this.setState((state) => {
-        return {...state, loggedIn: true}})
-        console.log('STATE', this.state)
+    .then((res) => {
+      dispatch({
+        type: types.USER_LOGGED_IN,
+        payload: {
+          firstName: response.Rs.mU,
+          lastName: response.Rs.mS,
+          createdAt: res.data.createdAt,
+          id: res.data.id,
+          jobs: res.data.jobs
+        } 
+      })
     })
     .catch(function (error) {
       console.log(error);
     });
   };
 
-  render() {
+  const jobs = useSelector((state)=>state.user.jobs);
+ 
     return (
       <div>
         <Router>
@@ -52,11 +63,11 @@ class App extends Component {
                 <button onClick={renderProps.onClick} disabled={renderProps.disabled}>Login</button>
                 )}  
                 buttonText="Login"
-                onSuccess={this.responseGoogle}
-                onFailure={this.responseGoogle}
+                onSuccess={responseGoogle}
+                onFailure={responseGoogle}
                 cookiePolicy={'single_host_origin'}
               />
-              {this.state.loggedIn ? (
+              {loggedIn ? (
                 <Link to="/dashboard">
                   <button>Dashboard</button>
                 </Link> 
@@ -67,8 +78,8 @@ class App extends Component {
                     <button onClick={renderProps.onClick} disabled={renderProps.disabled}>Sign Up</button>
                     )}  
                     buttonText="Login"
-                    onSuccess={this.responseGoogle}
-                    onFailure={this.responseGoogle}
+                    onSuccess={responseGoogle}
+                    onFailure={responseGoogle}
                     cookiePolicy={'single_host_origin'}
                   />
                 )
@@ -79,7 +90,7 @@ class App extends Component {
             </Link>
             <div id='rightbuttons'>
               <Link to="/demo">
-              <button>Demo</button>
+              <button onClick={()=>console.log(jobs)}>Demo</button>
               </Link>
               <Link to="/team">
               <button>Team</button>
@@ -89,11 +100,11 @@ class App extends Component {
 
           <Switch>
             <Route exact path="/">
-              <Landing responseGoogle={this.responseGoogle}/>
+              <Landing responseGoogle={responseGoogle}/>
             </Route>
             <Route exact path="/dashboard">
-              {this.state.loggedIn ? (
-                <JobModal company_name='Amazon' title='Software Engineer 2' stage='Applied' salary='$140k-170k' notes=''/>
+              {loggedIn ? (
+                <Dashboard />
                 ) : <Redirect to="/"></Redirect>
               }
             </Route>
@@ -101,7 +112,6 @@ class App extends Component {
         </Router>
       </div>
     )
-  }
 }
 
 export default App;

@@ -1,11 +1,11 @@
 import { combineReducers } from 'redux';
 
 import userReducer from './userReducer';
-import messageReducer from './messageReducer';
+import jobReducer from './jobReducer';
 
 const reducers = combineReducers({
   user: userReducer,
-  message: messageReducer,
+  job: jobReducer,
 });
 
 export default reducers;
